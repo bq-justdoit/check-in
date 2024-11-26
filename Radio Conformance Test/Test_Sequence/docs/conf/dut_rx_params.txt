@@ -1,0 +1,5 @@
+freq	0
+phy	0
+format	0
+pilot	0
+interval	50

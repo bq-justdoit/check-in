@@ -1,0 +1,10 @@
+freq	0
+pwr	5
+payload_len	255
+phy	0
+payload_type	0
+format1	0
+TX_rate	0
+pilot	0
+polar	0
+interval	50

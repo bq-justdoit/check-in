@@ -1,0 +1,7 @@
+pyvisa-py
+pyserial
+os
+time
+unittest
+HTMLTestRunner
+xlsxwriter
