@@ -11,11 +11,11 @@ REPORTS_PATH=os.path.dirname(__file__)+path_reports
 path_conf="\\docs\\conf\\"
 CONF_PATH=os.path.dirname(__file__)+path_conf
 
-measure_9020 ="9020_measure_param2.txt"#填写配置参数文件名
-dut_tx = "dut_tx_params.txt"#填写配置参数文件名
-dut_rx = "dut_rx_params.txt"#填写配置参数文件名
-dut_com="dut_com.txt"
-IP="192.168.3.244"
+measure_9020 ="9020_measure_param2.txt"#填写9020测试参数文件
+dut_tx = "dut_tx_params.txt"#填写dut tx测试参数文件
+dut_rx = "dut_rx_params.txt"#填写dut rx测试参数文件
+dut_com="dut_com.txt"#填写串口连接参数文件
+IP="192.168.3.244"#填写9020仪器ip
 power_class=2
 
 

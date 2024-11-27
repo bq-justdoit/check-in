@@ -8,7 +8,10 @@ class jud_power():
         self.config=config
         self.ip=ip
         self.get_data=get_data(self.config,self.ip)
-        self.tx_power=float(self.get_data.get_tx_power())
+        if self.get_data.get_tx_power():
+            self.tx_power=float(self.get_data.get_tx_power())
+        else:
+            self.tx_power=None
         self.test_time=self.get_data.get_time()
         self.result={}
 

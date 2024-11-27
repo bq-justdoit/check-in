@@ -1,11 +1,6 @@
->>> import serial.tools.list_ports
->>> ports = serial.tools.list_ports.comports()
->>> for port in ports:
-    print(f"设备: {port.device}, 描述: {port.description}")
 
-
-设备: COM3, 描述: Intel(R) Active Management Technology - SOL (COM3)
-设备: COM1, 描述: 通信端口 (COM1)
-设备: COM56, 描述: Silicon Labs Dual CP2105 USB to UART Bridge: Enhanced COM Port (COM56)
-设备: COM57, 描述: Silicon Labs Dual CP2105 USB to UART Bridge: Standard COM Port (COM57)
->>>
+说明：
+1.可执行文件入口：.\Test_Sequence\bin\tx_power.py
+2.脚本配置文件：\Test_Sequence\config.py,
+3.测试参数文档要放在文件夹中：\Test_Sequence\docs\conf,注：支持Tab键或英文冒号":"隔开参数和参数值
+4.输出的测试报告在文件夹中：\Test_Sequence\docs\reports

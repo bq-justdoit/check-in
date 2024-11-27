@@ -6,9 +6,9 @@ test_time: test_time
 test_result: test_result
 ----------------------------------------
 test_case: tx_power
-test_data: 6.014282
-test_time: 0.023706912994384766
-test_result: pass
+test_data: None
+test_time: None
+test_result: None
 ----------------------------------------
 test_case: 
 test_data: 

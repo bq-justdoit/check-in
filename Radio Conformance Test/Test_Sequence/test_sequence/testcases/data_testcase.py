@@ -84,7 +84,10 @@ class for_result():
         case=test_case
         judge_power.config=config
         judge_power.ip=ip
-        test_result=judge_power.judge(power_class)["test_result"]
+        if judge_power.judge(power_class):
+            test_result=judge_power.judge(power_class)["test_result"]
+        else:
+            test_result="None"
         test_data=judge_power.tx_power
         test_time=judge_power.test_time
 
