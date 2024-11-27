@@ -15,10 +15,12 @@ from test_sequence.instrument.instrument_control import inst_control
 class ReceiveHandler():
     def __init__(self):
         self.instrument_control = inst_control
-        self.instrument_control.connect()
+
 
     # def measure_sle(self, config=None):
-    def measure_sle(self, config=None):
+    def measure_sle(self, config=None,ip="192.168.3.211"):
+        self.instrument_control.ip=ip
+        self.instrument_control.connect(ip)
         if not self.instrument_control.state:
             print("未连接设备!无法测量")
             return 0
@@ -58,10 +60,12 @@ class ReceiveHandler():
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:RFSettings:FREQuency {frequency}MHz")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:RFSettings:ENPower {enpower}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:RFSettings:UMARgin {umargin}")
+            self.instrument_control.send("CONFigure:SENSe:SPARklink:RFSettings:MLOFfset 0")
+
             # 设置sparklinktype
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:STYPe SLE")
             # //设置measured burst、WirelessFrame type、同步信号、信号密度、bytes、control information type、BandWidth、data pattern
-            self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:DMODe MAN")
+            self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:DMODe AUTO")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:WFTYpe {wftype}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:SYNC {sync}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:PDENsity {pdensity}")
@@ -71,7 +75,7 @@ class ReceiveHandler():
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:CITYpe {citype}")
             # //此命令用于SLE设置PSK mcs
 
-            self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:MCS {mcs}")
+            # self.instrument_control.send(f"CONFigure:SENSe:SPARklink:ISIGnal:LENergy:MCS {mcs}")
             # //设置measurement timeout、repetition mode 、stop condition、error handling
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:TOUT {tout}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:REPetition {repetition}")
@@ -94,6 +98,7 @@ class ReceiveHandler():
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:TRIGger:SOURce '{trigger_source}'")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:TRIGger:THReshold {trigger_threshold}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:TRIGger:TOUT {trigger_tout}")
+            self.instrument_control.send("CONFigure:SENSe:SPARklink:MEValuation:TRIGger:MGAP 1.000000E-004")
             # //开启测量
             self.instrument_control.send(f"INITiate:SENSe:SPARklink:MEValuation")
             time_start = time.time()
@@ -101,37 +106,43 @@ class ReceiveHandler():
             # 等待测量完成
             self.instrument_control.send("*OPC?")
 
-            for i in range(100):
+            for i in range(10):
 
                 # 查询测量状态
-                state = self.instrument_control.send("FETCh:SENSe:POWer:STATe?")
+                # state = self.instrument_control.send("FETCh:SENSe:POWer:STATe?")
+                state = self.instrument_control.send(f"FETCh:SENSe:SPARklink:MEValuation:STATe?")
                 if "RDY" in state:
                     break
-                else:
-                    time.sleep(5)
+                # else:
+                #     time.sleep(0.02)
 
             time_stop = time.time()
             test_time = time_stop - time_start
 
-            # //查询 main measurement state
-            self.instrument_control.send(f"FETCh:SENSe:SPARklink:MEValuation:STATe?")
+            # # //查询 main measurement state
+            # self.instrument_control.send(f"FETCh:SENSe:SPARklink:MEValuation:STATe?")
 
             result = {
-                "power_current": "",
-                "power_average": "",
-                "power_maximum": "",
-                "power_minimum": "",
-                "modulation_current": "",
-                "modulation_average": "",
-                "modulation_maximum": "",
-                "modulation_minimum": "",
-                "ibemask_current": "",
-                "ibemask_average": "",
-                "ibemask_maximum": "",
-                "ibemask_minimum": "",
                 "test_time": test_time,
 
             }
+
+            # result = {
+            #     "power_current": "",
+            #     "power_average": "",
+            #     "power_maximum": "",
+            #     "power_minimum": "",
+            #     "modulation_current": "",
+            #     "modulation_average": "",
+            #     "modulation_maximum": "",
+            #     "modulation_minimum": "",
+            #     "ibemask_current": "",
+            #     "ibemask_average": "",
+            #     "ibemask_maximum": "",
+            #     "ibemask_minimum": "",
+            #     "test_time": test_time,
+            #
+            # }
 
             # //查询power results
             result["power_current"] = self.instrument_control.send(

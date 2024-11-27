@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # import xlsxwriter
-from setup import dir
+from conf import REPORTS_PATH
 
 class reports():
     def __init__(self):
@@ -14,7 +14,7 @@ class reports():
     def write(self):
         pass
 
-    def output_txt(self, result):
+    def output_txt(self, result,report_name):
         test_case = result["test_case"]
         test_data = result["test_data"]
         test_time = result["test_time"]
@@ -27,8 +27,8 @@ class reports():
             {"test_case": "", "test_data": "", "test_time": "", "test_result": "", },
             {"test_case": "", "test_data": "", "test_time": "", "test_result": "", },
         ]
-        print(dir)
-        with open(dir+"test_report.txt", 'w') as report:
+        # print(REPORTS_PATH)
+        with open(REPORTS_PATH+report_name, 'w') as report:
             # for i in range(len(txt)):
             #     report.write(txt[i]["test_case"]+"\n")
             #     report.write(txt[i]["test_data"]+"\n")
@@ -48,7 +48,7 @@ class reports():
         return report
 
 
-    def output_HTML(self,result):
+    def output_html(self,result,report_name):
         test_case = result["test_case"]
         test_data = result["test_data"]
         test_time = result["test_time"]
@@ -71,20 +71,20 @@ class reports():
         </body>
         </html>
         """
-        with open(dir+'report.html', 'w') as report:
+        with open(REPORTS_PATH+report_name, 'w') as report:
             report.write(html_content)
 
         return report
 
-    def output_csv(self,result):
+    def output_csv(self,result,report_name):
         test_case = result["test_case"]
         test_data = result["test_data"]
         test_time = result["test_time"]
         test_result = result["test_result"]
 
         # report=xlsxwriter.Workbook('report.xlsx')
-        print(dir)
-        with open(dir+'report.csv','w') as report:
+
+        with open(REPORTS_PATH+report_name,'w') as report:
             report.write("test_case,test_data,test_time,test_result,\n")
             report.write(f"{test_case},{test_data},{test_time},{test_result},\n")
             report.write("-" * 40 + "\n")
@@ -109,8 +109,8 @@ if __name__ == '__main__':
     from test_sequence.testcases.data_testcase import for_result
     result = for_result().get_result()
     report = reports()
-    print(report.output_txt(result))
-    print(report.output_HTML(result))
-    print(report.output_csv(result))
+    print(report.output_txt(result,report_name="report.txt"))
+    print(report.output_html(result,report_name="report.html"))
+    print(report.output_csv(result,report_name="report.csv"))
 
 

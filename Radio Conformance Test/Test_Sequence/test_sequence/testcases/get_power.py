@@ -7,9 +7,11 @@ class get_data():
     def __init__(self,config=None,ip="192.168.3.211"):
         self.receive_handler=receive_handler
         self.result = self.receive_handler.measure_sle(config,ip)
+        self.receive_handler.close_instrument()
     def get_tx_power(self):
         if self.result:
-            tx_power=self.result["power_current"]
+            power_current=self.result["power_current"]
+            tx_power=power_current.split(",")[1]
             return tx_power
         else:
             print("tx_power error")

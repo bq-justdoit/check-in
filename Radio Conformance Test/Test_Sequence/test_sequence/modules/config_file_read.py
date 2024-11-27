@@ -4,6 +4,7 @@
 # import os
 
 # print(os.getcwd())  # 获取当前工作目录
+# from setup import PATH_9020,PATH_DUT_TX,PATH_DUT_RX
 
 class operate_list():
     def __init__(self,txt_list):
@@ -49,7 +50,8 @@ class operate_file_to_dict():
         # print(txt)
         self.list_to_dict = operate_list(txt)
         # print(self.list_to_dict.list_to_dict())
-        return self.list_to_dict.list_to_dict()
+        dict_config=self.list_to_dict.list_to_dict()
+        return dict_config
 
 if __name__ == '__main__':
 
@@ -62,18 +64,22 @@ if __name__ == '__main__':
     # print(list_to_dict.list_to_dict())
     print("\n")
 
-    measure_9020 = "9020_measure_param2.txt"
-    config_dict=operate_file_to_dict()
-    print(config_dict.file_to_dict(measure_9020))
-    print("\n")
-
-    dut_tx = "dut_tx_params.txt"
-    config_dict=operate_file_to_dict()
-    print(config_dict.file_to_dict(dut_tx))
-    print("\n")
-
-    dut_rx = "dut_rx_params.txt"
-    config_dict = operate_file_to_dict()
-    print(config_dict.file_to_dict(dut_rx))
-    print("\n")
+    # measure_9020 ="9020_measure_param2.txt"
+    # measure_9020 =PATH_9020
+    # config_dict=operate_file_to_dict()
+    # print(config_dict.file_to_dict(measure_9020))
+    # print("\n")
+    #
+    # # dut_tx = "dut_tx_params.txt"
+    # dut_tx = PATH_DUT_TX
+    # config_dict=operate_file_to_dict()
+    # print(config_dict.file_to_dict(dut_tx))
+    # print("\n")
+    #
+    # # dut_rx = "dut_rx_params.txt"
+    # dut_rx = PATH_DUT_RX
+    # config_dict = operate_file_to_dict()
+    # print(config_dict.file_to_dict(dut_rx))
+    # print("\n")
+    pass
 

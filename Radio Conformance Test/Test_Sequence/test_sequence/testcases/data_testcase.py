@@ -71,7 +71,7 @@
 #                 self.result["test_result"] = "fail"
 #                 return self.result
 
-from test_sequence.testcases.judge_power import judge_power
+from test_sequence.testcases.judge_power import jud_power
 # from test_sequence.testcases.tx_power import get_tx_power
 
 
@@ -79,9 +79,12 @@ from test_sequence.testcases.judge_power import judge_power
 class for_result():
     def __init__(self):
         pass
-    def get_result(self,test_case="tx_power"):
+    def get_result(self,test_case="tx_power",config=None,ip="192.168.3.211",power_class=2):
+        judge_power=jud_power(config,ip)
         case=test_case
-        test_result=judge_power.judge(power_class=3)
+        judge_power.config=config
+        judge_power.ip=ip
+        test_result=judge_power.judge(power_class)["test_result"]
         test_data=judge_power.tx_power
         test_time=judge_power.test_time
 
