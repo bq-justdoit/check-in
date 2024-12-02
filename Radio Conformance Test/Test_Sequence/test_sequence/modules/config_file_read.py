@@ -5,6 +5,8 @@
 
 # print(os.getcwd())  # 获取当前工作目录
 # from setup import PATH_9020,PATH_DUT_TX,PATH_DUT_RX
+from conf import PATH_TRANSMIT_9020,PATH_JSON_TX,PATH_9020
+import json
 
 class operate_list():
     def __init__(self,txt_list):
@@ -20,8 +22,19 @@ class operate_list():
             if "\t" in self.txt_list[i]:
                 temp_list.append(self.txt_list[i].split("\t")[0])
                 temp_list.append(self.txt_list[i].split("\t")[1])
-            self.dict_config[temp_list[0]]=temp_list[1]
-
+            try:
+                list_value=temp_list[1].split(",")
+                while "" in list_value:#必须要有这个，否则没有空字符时会报错
+                    list_value.remove("")
+                if len(list_value)==1:
+                    if "," in temp_list[1]:
+                        temp_list[1]=temp_list[1].replace(",","")
+                    self.dict_config[temp_list[0]]=temp_list[1]
+                else:
+                    self.dict_config[temp_list[0]]=list_value
+            except IndexError:
+                print("可能是缺少:或Tab键隔开参数和参数值")
+                print(self.txt_list[i-1])
         return self.dict_config
 
 
@@ -53,6 +66,14 @@ class operate_file_to_dict():
         dict_config=self.list_to_dict.list_to_dict()
         return dict_config
 
+def txt_to_json(file=PATH_TRANSMIT_9020):
+    dict_class=operate_file_to_dict()
+    dict=dict_class.file_to_dict(file)
+    with open(PATH_JSON_TX,'w') as f:
+        json.dump(dict,f,indent=4)
+
+
+
 if __name__ == '__main__':
 
     # file="9020_measure_param.txt"
@@ -81,5 +102,6 @@ if __name__ == '__main__':
     # config_dict = operate_file_to_dict()
     # print(config_dict.file_to_dict(dut_rx))
     # print("\n")
-    pass
+    txt_to_json(file=PATH_TRANSMIT_9020)
+    # txt_to_json(file=PATH_9020)
 

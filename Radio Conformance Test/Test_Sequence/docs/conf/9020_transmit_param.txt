@@ -1,0 +1,12 @@
+rf_port	1
+source_bbmode	ARB
+source_list	OFF
+eattenuation	0
+dgain	0
+frequency	1.00E+09,2,3,4
+level	-70,-50,-20,-10
+arb_file	file1
+arb_repetition	CONT
+retrigger	ON
+trig_arb_autostart 	ON
+trigger_arb_delay	0

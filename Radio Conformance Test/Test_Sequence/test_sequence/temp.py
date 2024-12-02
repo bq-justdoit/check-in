@@ -168,3 +168,79 @@ def output_HTML(self, result):
 设备: COM56, 描述: Silicon Labs Dual CP2105 USB to UART Bridge: Enhanced COM Port (COM56)
 设备: COM57, 描述: Silicon Labs Dual CP2105 USB to UART Bridge: Standard COM Port (COM57)
 >>>"""
+
+Normal_ARB
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 设置端口
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:ROUTe: SCENario:SALone
+RF18
+CONFigure: SOURce:ROUTe: USAGe:ALL
+RF18, OFF, OFF, OFF, OFF, OFF, OFF, OFF, OFF
+CONFigure: SOURce:ROUTe: USAGe
+RF1, ON
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 设置baseband
+mode 、list模式、external
+attenuation、dgain
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:BBMode
+ARB
+CONFigure: SOURce:LIST
+OFF
+CONFigure: SOURce:RFSettings: EATTenuation
+0
+CONFigure: SOURce:RFSettings: DGAin
+0
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 设置frequency、level
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:RFSettings: FREQuency
+1.000000E+009
+CONFigure: SOURce:RFSettings: LEVel - 70
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// Load
+ARB波形，设置repeiion，查询波形属性
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:ARB: FILE
+'NRSub6G_20MHz_64QAM_full_DL.wv'
+CONFigure: SOURce:ARB: FILE?
+CONFigure: SOURce:ARB: REPetition
+CONT
+CONFigure: SOURce:ARB: FILE:DATE?
+CONFigure: SOURce:ARB: FILE:VERSion?
+CONFigure: SOURce:ARB: FILE:OPTion?
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 设置ARB波形autostart、trigger
+delay
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:TRIGger: ARB:RETRigger
+ON
+
+CONFigure: SOURce:TRIG: ARB:AUTostart
+ON
+CONFigure: SOURce:TRIGger: ARB:DELay
+0
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 打开Generator并查询Generator当前状态
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:STATe
+ON
+CONFigure: SOURce:STATe?
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 查询可靠性
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:RELiability: ALL?
+
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+// 关闭Generator
+// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+CONFigure: SOURce:STATe
+OFF

@@ -1,4 +1,4 @@
-rf:RF1
+rf:1
 eattenuation:0
 frequency:2412MHz
 enpower:-10
@@ -23,7 +23,7 @@ scount_ibemask:20
 result_modulation:OFF
 result_power:OFF
 result_ibemask:OFF
-result:OFF,OFF,OFF
+
 trigger_source:IF Power
 trigger_threshold:-30
 trigger_tout:2

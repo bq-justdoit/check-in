@@ -48,7 +48,7 @@ class ReceiveHandler():
             result_modulation = config["result_modulation"]
             result_power = config["result_power"]
             result_ibemask = config["result_ibemask"]
-            result = config["result"]
+            # result = config["result"]
             trigger_source = config["trigger_source"]
             trigger_threshold = config["trigger_threshold"]
             trigger_tout = config["trigger_tout"]
@@ -93,7 +93,7 @@ class ReceiveHandler():
                 f"CONFigure:SENSe:SPARklink:MEValuation:LENergy:RESult:MODulation {result_modulation}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:LENergy:RESult:POWer {result_power}")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:LENergy:RESult:IBEMask {result_ibemask}")
-            self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:LENergy:RESult {result}")
+            self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:LENergy:RESult {result_modulation},{result_power},{result_ibemask}")
             # //设置trigger source、trigger level、trigger timeout
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:TRIGger:SOURce '{trigger_source}'")
             self.instrument_control.send(f"CONFigure:SENSe:SPARklink:MEValuation:TRIGger:THReshold {trigger_threshold}")
